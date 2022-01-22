@@ -25,9 +25,10 @@ import { User } from 'src/auth/user.entity';
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
+  // 전체 게시물 가져오기에서 자신의 게시물만 가지고오기로 변경
   @Get()
-  getAllTask(): Promise<Board[]> {
-    return this.boardsService.getAllBoards();
+  getAllTask(@GetUser() user: User): Promise<Board[]> {
+    return this.boardsService.getAllBoards(user);
   }
   // @Get()
   // getAllBoard(): Board[] {
@@ -60,8 +61,11 @@ export class BoardsController {
   // }
 
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.boardsService.deleteBoard(id);
+  deleteBoard(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.boardsService.deleteBoard(id, user);
   }
   // @Delete('/:id')
   // deleteBoard(@Param('id') id: string): void {
