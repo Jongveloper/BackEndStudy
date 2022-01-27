@@ -1,5 +1,17 @@
 import { CatsService } from './cats.service';
-import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+  UseFilters,
+} from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/http-exeption.filter';
 
 @Controller('cats')
 export class CatsController {
@@ -7,12 +19,15 @@ export class CatsController {
 
   //* cats/
   @Get()
+  @UseFilters(HttpExceptionFilter)
   getAllCat() {
+    throw new HttpException('api is broken', 401);
     return 'all cat';
   }
   //* cats/:id
   @Get(':id')
-  getOneCat() {
+  getOneCat(@Param('id', ParseIntPipe) param: number) {
+    console.log(param);
     return 'one cate';
   }
 
