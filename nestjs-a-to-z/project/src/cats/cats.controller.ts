@@ -20,37 +20,28 @@ import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor'
 @UseFilters(HttpExceptionFilter)
 export class CatsController {
   constructor(private readonly CatsService: CatsService) {}
-
-  //* cats/
   @Get()
-  getAllCat() {
-    console.log('hello controller');
-    return { cats: 'get all cat api' };
-  }
-  //* cats/:id
-  @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe) param: number) {
-    console.log(param);
-    return 'one cate';
+  getCurrentCat() {
+    return 'current cat';
   }
 
   @Post()
-  createCat() {
-    return 'new cat';
+  async signUp() {
+    return 'signup';
   }
 
-  @Put(':id')
-  updateCat() {
-    return 'update cat';
+  @Post('login')
+  logIn() {
+    return 'login';
   }
 
-  @Patch(':id')
-  updatePartialCat() {
-    return 'update';
+  @Post('logout')
+  logOut() {
+    return 'logout';
   }
 
-  @Delete(':id')
-  deleteCat() {
-    return 'delete';
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg';
   }
 }
